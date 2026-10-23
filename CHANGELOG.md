@@ -1,5 +1,12 @@
 # Cambios del proyecto
 
+## Paquete para pendrive
+
+- ZIP con manual PDF, hoja resumen, guías, scripts y herramienta de diagnóstico.
+- Nota de inicio e inventario SHA-256 de los archivos incluidos.
+- Empaquetador reproducible en `herramientas/preparar_zip.py`.
+- Los pesos y dependencias siguen descargándose durante la preparación con Internet.
+
 ## Manual PDF para consulta sin Internet
 
 - Manual de 34 páginas con índice enlazado y seis esquemas incrustados.

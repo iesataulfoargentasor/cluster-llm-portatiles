@@ -43,6 +43,10 @@ Incluye 34 páginas, índice enlazado, 12 capítulos y los seis esquemas incorpo
 
 ## Obtener los archivos en Ubuntu
 
+**Para llevarlo en un pendrive:** [descargar el paquete ZIP completo](https://github.com/iesataulfoargentasor/cluster-llm-portatiles/raw/refs/heads/main/distribucion/prueba_dos_portatiles.zip). Incluye el PDF, los scripts, la hoja resumen, las guías y la herramienta de diagnóstico. Extrae su carpeta `prueba_dos_portatiles` en la Carpeta personal de cada equipo y abre `00_EMPEZAR_AQUI.txt`.
+
+Este ZIP contiene documentación y scripts. Los pesos del modelo, CUDA y las dependencias se descargan durante la preparación con Internet, antes de conectar los equipos al switch aislado.
+
 Con Internet, en cada portátil, descarga el repositorio mediante **Code → Download ZIP**. En Archivos de Ubuntu, abre Descargas, pulsa con el botón derecho sobre el ZIP y selecciona **Extraer aquí**. Abre la carpeta extraída y copia su carpeta `prueba_dos_portatiles` a tu Carpeta personal.
 
 Como alternativa, si tienes Git instalado, abre una terminal y ejecuta:
