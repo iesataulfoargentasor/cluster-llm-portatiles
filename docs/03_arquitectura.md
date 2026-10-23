@@ -33,7 +33,7 @@ Esquema conceptual: el proceso repite operaciones durante la generación. La tra
 ## Direcciones y puertos
 
 ```mermaid
-flowchart LR
+flowchart TD
     subgraph PA[Portátil A · 192.168.50.10]
         WEB[Chat · 127.0.0.1:8080] --> MODEL[llama-server y CUDA local]
         MODEL --> TA[Túnel · 127.0.0.1:50052]
