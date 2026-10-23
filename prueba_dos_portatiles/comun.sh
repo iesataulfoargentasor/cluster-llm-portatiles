@@ -7,6 +7,11 @@ PAQUETE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 source "$PAQUETE/versiones.env"
 TRABAJO="$HOME/cluster_llm"
 FUENTE="$TRABAJO/llama.cpp-${LLAMA_COMMIT:0:12}"
+if [[ -f "$TRABAJO/FUENTE_OFFLINE.txt" ]]; then
+    fuente_offline="$(cat "$TRABAJO/FUENTE_OFFLINE.txt")"
+    [[ "$fuente_offline" == "$TRABAJO/llama.cpp-offline-${LLAMA_COMMIT:0:12}" ]] || { printf 'Ruta offline inesperada. Revisa FUENTE_OFFLINE.txt.\n' >&2; exit 1; }
+    FUENTE="$fuente_offline"
+fi
 BIN="$FUENTE/build/bin"
 MODELO="$TRABAJO/modelos/$MODEL_NAME"
 CUDA_RAIZ='/usr/local/cuda-12.8'

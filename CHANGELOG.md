@@ -1,5 +1,14 @@
 # Cambios del proyecto
 
+## Preparación de un kit de instalación sin Internet
+
+- Nueva ruta en `sin_conexion`: preparación en Ubuntu 22.04 conectado, instalación local A/B e importación del modelo en A.
+- Descarga de dependencias con un estado APT vacío para incluir también las ya instaladas en el preparador.
+- Fuentes y recursos del chat incorporados; compilación offline con descargas de UI desactivadas.
+- Repositorio APT local, comprobación SHA-256 y conservación del controlador existente.
+- Guía independiente en Markdown y HTML. El PDF general mantiene la primera ruta de instalación con Internet.
+- Pendiente validar esta nueva ruta en Ubuntu real. Los modelos y paquetes grandes no se publican en GitHub.
+
 ## Paquete para pendrive
 
 - ZIP con manual PDF, hoja resumen, guías, scripts y herramienta de diagnóstico.

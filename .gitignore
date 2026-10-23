@@ -7,3 +7,6 @@ informes_cluster/
 cluster_llm/
 resultados_locales/
 .env
+kit_cluster_sin_internet/
+*.deb
+*.tar.gz

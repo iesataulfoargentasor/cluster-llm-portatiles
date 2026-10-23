@@ -2,6 +2,7 @@
 # En A: bash ./01_instalar.sh A     En B: bash ./01_instalar.sh B
 source "$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)/comun.sh"
 comprobar_usuario
+[[ ! -f "$TRABAJO/FUENTE_OFFLINE.txt" ]] || fallar 'Este usuario utiliza una instalacion offline. Usa sin_conexion/02_instalar_sin_internet.sh para mantenerla; no mezcles los dos instaladores.'
 ROL="${1:-}"
 [[ "$#" -eq 1 && "$ROL" =~ ^[AB]$ ]] || fallar 'Uso: bash ./01_instalar.sh A  (o B)'
 source /etc/os-release

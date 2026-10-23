@@ -43,6 +43,8 @@ Incluye 34 páginas, índice enlazado, 12 capítulos y los seis esquemas incorpo
 
 ## Obtener los archivos en Ubuntu
 
+**Si los portátiles deben instalarse sin Internet:** sigue la [guía del kit de instalación offline](sin_conexion/LEEME.md). Se prepara primero en un Ubuntu 22.04 conectado y después se lleva el kit grande al USB. Incluye paquetes, CUDA Toolkit, fuentes, recursos del chat y modelo. Los nuevos scripts están preparados; su ejecución real en Ubuntu sigue pendiente. No confundir este kit generado en Ubuntu con el ZIP pequeño de documentación y scripts enlazado debajo.
+
 **Para llevarlo en un pendrive:** [descargar el paquete ZIP completo](https://github.com/iesataulfoargentasor/cluster-llm-portatiles/raw/refs/heads/main/distribucion/prueba_dos_portatiles.zip). Incluye el PDF, los scripts, la hoja resumen, las guías y la herramienta de diagnóstico. Extrae su carpeta `prueba_dos_portatiles` en la Carpeta personal de cada equipo y abre `00_EMPEZAR_AQUI.txt`.
 
 Este ZIP contiene documentación y scripts. Los pesos del modelo, CUDA y las dependencias se descargan durante la preparación con Internet, antes de conectar los equipos al switch aislado.
