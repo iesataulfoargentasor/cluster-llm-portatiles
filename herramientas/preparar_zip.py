@@ -8,52 +8,48 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parent.parent
 SALIDA = ROOT / 'distribucion' / 'prueba_dos_portatiles.zip'
-BASE = 'prueba_dos_portatiles/'
-inicio = '''EMPEZAR AQUI - PAQUETE PARA EL PENDRIVE
+BASE = 'cluster-llm-portatiles/'
+inicio = """EMPEZAR AQUI - DOCUMENTACION Y SCRIPTS ACTUALIZADOS
+
+1. Extrae este ZIP en la Carpeta personal del Ubuntu preparador.
+   Debe quedar ~/cluster-llm-portatiles. Conserva cualquier copia anterior
+   con otro nombre para no mezclar versiones.
+2. Abre output/pdf/manual-cluster-llm-portatiles.pdf.
+3. Para instalar SIN INTERNET: lee sin_conexion/LEEME.html y consulta
+   sin_conexion/HOJA_RESUMEN_OFFLINE.html (imprimible).
+   Con Internet en el Ubuntu preparador ejecuta:
+
+   cd "$HOME/cluster-llm-portatiles/sin_conexion"
+   bash ./01_preparar_kit_con_internet.sh
+
+4. Espera KIT PREPARADO. Copia ~/kit_cluster_sin_internet ENTERO al USB
+   y despues a la Carpeta personal de A y B. Sigue la hoja offline.
+5. Si prefieres INSTALACION CON INTERNET en ambos, copia solamente la
+   subcarpeta prueba_dos_portatiles a ~/prueba_dos_portatiles y sigue
+   su GUIA_PASO_A_PASO y HOJA_RESUMEN.html. No mezcles instaladores.
+
+El ZIP incluye PDF, esquemas, scripts corregidos, guias, ambas hojas
+resumen y herramienta de diagnostico. MANIFIESTO.json enumera sus hashes.
+NO incluye el modelo de unos 9 GB ni los paquetes CUDA/Ubuntu. Estos se
+descargan al preparar el kit grande en Ubuntu 22.04 conectado.
+Recomendado: pendrive 64 GB exFAT/ext4; FAT32 no admite el GGUF.
+No ejecutes los scripts completos con sudo ni directamente desde el USB.
+La instalacion APT/CUDA y la inferencia reales siguen pendientes de
+validacion en los portatiles. Se han superado 26 pruebas simuladas.
 
 Proyecto: https://github.com/iesataulfoargentasor/cluster-llm-portatiles
-Equipos: dos portatiles Ubuntu 22.04 LTS del centro; roles A y B.
-
-1. Copia este ZIP al pendrive y llevalo a ambos equipos.
-2. Extraelo en la Carpeta personal de cada usuario de Ubuntu.
-   La carpeta debe quedar en ~/prueba_dos_portatiles, sin otra carpeta
-   prueba_dos_portatiles dentro. Conserva con otro nombre cualquier copia
-   anterior antes de extraer, para no mezclar versiones.
-3. Abre manual-cluster-llm-portatiles.pdf para consultar todo el proceso.
-   HOJA_RESUMEN.html contiene el orden de comandos para A y B y se puede
-   abrir en el navegador sin Internet e imprimir a doble cara.
-4. Abre una terminal local y entra en el paquete:
-
-   cd "$HOME/prueba_dos_portatiles"
-
-5. Sigue la hoja resumen. Orden general:
-   - Con Internet: 01 en A y B; despues 02 solamente en A.
-   - Switch aislado: 07 en ambos; 03 en B; 04 y 05 en A; prueba 06 en A.
-   - Al terminar: parar modelo, tunel y RPC; volver a la red habitual;
-     ejecutar 08 en ambos para recuperar DHCP.
-
-No ejecutes los scripts completos con sudo. Mantén el mismo usuario de
-Ubuntu durante la prueba. No los ejecutes directamente desde el pendrive.
-Si Ethernet no se llama eno1, sigue las instrucciones de la guia para
-indicar su nombre al ejecutar 07 y 08.
-
-El paquete incluye PDF, hoja resumen, guia completa, scripts 01 a 08,
-archivos auxiliares y herramienta de recopilacion de hardware.
-MANIFIESTO.json contiene el inventario y las huellas SHA-256 de los archivos.
-
-IMPORTANTE: el ZIP NO contiene los pesos del modelo, CUDA, controladores
-ni dependencias instaladas. Completa la instalacion y la descarga con
-Internet ANTES de pasar al switch aislado. El script 02 descarga y verifica
-el modelo, de unos 9 GB. La documentacion si funciona sin Internet.
-
-La ejecucion real del prototipo en el centro sigue pendiente. Los informes
-originales, las consultas y los registros privados no se incluyen.
-'''
+"""
 
 def main():
-    archivos = {p.name: p.read_bytes() for p in (ROOT / 'prueba_dos_portatiles').iterdir() if p.is_file()}
-    archivos['manual-cluster-llm-portatiles.pdf'] = (ROOT / 'output/pdf/manual-cluster-llm-portatiles.pdf').read_bytes()
+    archivos = {}
+    for carpeta in ('prueba_dos_portatiles', 'sin_conexion', 'docs'):
+        for p in (ROOT / carpeta).iterdir():
+            if p.is_file():
+                archivos[p.relative_to(ROOT).as_posix()] = p.read_bytes()
+    archivos['output/pdf/manual-cluster-llm-portatiles.pdf'] = (ROOT / 'output/pdf/manual-cluster-llm-portatiles.pdf').read_bytes()
     archivos['00_EMPEZAR_AQUI.txt'] = inicio.encode('utf-8')
+    archivos['README.md'] = (ROOT / 'README.md').read_bytes()
+    archivos['CHANGELOG.md'] = (ROOT / 'CHANGELOG.md').read_bytes()
     for name in ('recopilar_datos_cluster.sh', 'INSTRUCCIONES.txt'):
         archivos['herramientas/' + name] = (ROOT / 'herramientas' / name).read_bytes()
     for name in archivos:

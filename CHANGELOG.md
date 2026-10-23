@@ -1,5 +1,12 @@
 # Cambios del proyecto
 
+## PDF y ZIP con la ruta offline revisada
+
+- Manual actualizado con instalación offline, hoja resumen A/B y esquema del recorrido Ubuntu conectado → kit → pendrive → instalación aislada.
+- ZIP con raíz `cluster-llm-portatiles`, estructura compatible con el preparador offline, scripts corregidos, ambas hojas resumen y manual PDF.
+- El ZIP pequeño no incluye pesos ni paquetes: se generan en el kit grande desde Ubuntu con Internet.
+- Revisada la maquetación del PDF y comprobados el contenido del ZIP y su inventario SHA-256.
+
 ## Revisión simulada de la instalación sin Internet
 
 - Corregida la reanudación de un modelo parcial que ya tiene el tamaño completo.

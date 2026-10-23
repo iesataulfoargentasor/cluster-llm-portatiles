@@ -41,7 +41,7 @@ La interfaz del chat se obtiene con el script oficial de llama.cpp, que verifica
 
 ## 1 Preparar con Internet
 
-Descarga el repositorio actualizado en el portátil Ubuntu elegido. Estas instrucciones suponen que está en `~/cluster-llm-portatiles`. Si descargaste un ZIP de GitHub, renombra su carpeta extraída para que coincida. Si ya lo clonaste y no tienes cambios locales, puedes actualizarlo con `git -C "$HOME/cluster-llm-portatiles" pull --ff-only`.
+Descarga el repositorio actualizado en el portátil Ubuntu elegido. Estas instrucciones suponen que está en `~/cluster-llm-portatiles`. El ZIP de distribución actualizado ya contiene esa carpeta. Si usas Code → Download ZIP, renombra la carpeta extraída para que coincida. Si ya lo clonaste y no tienes cambios locales, puedes actualizarlo con `git -C "$HOME/cluster-llm-portatiles" pull --ff-only`.
 
 Ejecuta desde una terminal local, sin sudo delante:
 
@@ -145,7 +145,7 @@ En una sesión posterior no se reinstala ni se copia de nuevo el modelo. Se repi
 
 Las huellas garantizan coherencia de las copias, no sustituyen la confianza en el equipo que prepara el kit. El repositorio local se declara confiable únicamente para las invocaciones de APT del instalador; no se modifica la confianza global de los repositorios habituales.
 
-El PDF general incluido describe la primera ruta con Internet durante la instalación. **Para este kit, esta guía es la referencia de preparación e instalación.** El resto del manual sigue sirviendo como contexto, diagnóstico y explicación del clúster.
+El PDF actualizado incluye esta guía y una hoja resumen offline, además de la ruta original con instalación conectada. **Para este kit, sigue el capítulo «Instalación desde pendrive sin Internet» y su hoja resumen.** Los capítulos de instalación conectada son una alternativa, no pasos adicionales.
 
 - [Guía oficial de CUDA 12.8](https://docs.nvidia.com/cuda/archive/12.8.1/cuda-installation-guide-linux/index.html).
 - [Recursos web de llama.cpp en la revisión fijada](https://github.com/ggml-org/llama.cpp/blob/620d2225cc436ab0b001e3200e590e3b286ef9ab/scripts/ui-assets.cmake).

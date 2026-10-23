@@ -6,7 +6,7 @@ La necesidad inicial era trabajar con modelos de pesos abiertos sin depender de 
 
 ## Estado del proyecto
 
-**Preparación del prototipo, a 23 de octubre de 2026.** Se ha caracterizado un portátil, preparado scripts e instrucciones y superado 12 pruebas de lógica de red simulada. Todavía falta instalar y ejecutar el conjunto en los dos portátiles del centro. No hay medidas reales de tokens por segundo ni confirmación de que Qwen3-14B quepa con la configuración propuesta. Los tres informes recibidos proceden del mismo equipo.
+**Preparación del prototipo, a 23 de octubre de 2026.** Se ha caracterizado un portátil, preparado scripts e instrucciones y superado 26 pruebas automatizadas (14 offline y 12 de red simulada). Todavía falta instalar y ejecutar el conjunto en los dos portátiles del centro. No hay medidas reales de tokens por segundo ni confirmación de que Qwen3-14B quepa con la configuración propuesta. Los tres informes recibidos proceden del mismo equipo.
 
 ## El objetivo en un dibujo
 
@@ -27,7 +27,7 @@ La prueba distribuye trabajo y memoria entre GPU. No convierte físicamente las 
 
 **Manual para consultar sin Internet:** [descargar el PDF completo](https://github.com/iesataulfoargentasor/cluster-llm-portatiles/raw/refs/heads/main/output/pdf/manual-cluster-llm-portatiles.pdf) · [ver el PDF en GitHub](output/pdf/manual-cluster-llm-portatiles.pdf).
 
-Incluye 34 páginas, índice enlazado, 12 capítulos y los seis esquemas incorporados. Guárdalo en ambos portátiles antes de aislar la red. Edición del 23 de octubre de 2026, basada en la revisión documental `f962ba4`. El PDF contiene las instrucciones; los scripts y el modelo se preparan por separado según la guía. Las referencias externas requieren Internet.
+Incluye índice enlazado, los esquemas incorporados, la instalación desde pendrive y una hoja resumen offline. Guárdalo en ambos portátiles antes de aislar la red. Edición del 23 de octubre de 2026, con los scripts offline revisados en `d4d6f91`. El ZIP incluye el PDF y los scripts corregidos; el modelo y las dependencias se incorporan al kit grande durante la preparación en Ubuntu. Las referencias externas requieren Internet.
 
 | Necesidad | Documento |
 |---|---|
@@ -45,7 +45,7 @@ Incluye 34 páginas, índice enlazado, 12 capítulos y los seis esquemas incorpo
 
 **Si los portátiles deben instalarse sin Internet:** sigue la [guía del kit de instalación offline](sin_conexion/LEEME.md). Se prepara primero en un Ubuntu 22.04 conectado y después se lleva el kit grande al USB. Incluye paquetes, CUDA Toolkit, fuentes, recursos del chat y modelo. Los nuevos scripts están preparados; su ejecución real en Ubuntu sigue pendiente. No confundir este kit generado en Ubuntu con el ZIP pequeño de documentación y scripts enlazado debajo.
 
-**Para llevarlo en un pendrive:** [descargar el paquete ZIP completo](https://github.com/iesataulfoargentasor/cluster-llm-portatiles/raw/refs/heads/main/distribucion/prueba_dos_portatiles.zip). Incluye el PDF, los scripts, la hoja resumen, las guías y la herramienta de diagnóstico. Extrae su carpeta `prueba_dos_portatiles` en la Carpeta personal de cada equipo y abre `00_EMPEZAR_AQUI.txt`.
+**Para llevarlo en un pendrive:** [descargar el paquete ZIP completo](https://github.com/iesataulfoargentasor/cluster-llm-portatiles/raw/refs/heads/main/distribucion/prueba_dos_portatiles.zip). Incluye el PDF, los scripts, la hoja resumen, las guías y la herramienta de diagnóstico. Extrae su carpeta `cluster-llm-portatiles` en la Carpeta personal del Ubuntu preparador y abre `00_EMPEZAR_AQUI.txt`.
 
 Este ZIP contiene documentación y scripts. Los pesos del modelo, CUDA y las dependencias se descargan durante la preparación con Internet, antes de conectar los equipos al switch aislado.
 
