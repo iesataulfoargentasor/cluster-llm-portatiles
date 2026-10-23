@@ -2,6 +2,8 @@
 
 Sigue esta secuencia con el paquete completo en `~/prueba_dos_portatiles`. Utiliza una terminal local y el mismo usuario en cada equipo. No antepongas `sudo` a los scripts. Si un paso falla, consulta la [guía completa](../prueba_dos_portatiles/GUIA_PASO_A_PASO.md) antes de continuar.
 
+Si empiezas desde cero, completa primero [la descarga y colocación de archivos](../README.md#obtener-los-archivos-en-ubuntu). Esta secuencia se realiza en los portátiles Ubuntu del proyecto. Cada vez que abras una terminal nueva, ejecuta `cd "$HOME/prueba_dos_portatiles"` antes de un script.
+
 ```mermaid
 flowchart TD
     I[Internet disponible] --> AB[Instalar 01 en A y B]
@@ -32,10 +34,13 @@ En A:
 
 ```bash
 bash ./01_instalar.sh A
-bash ./02_descargar_modelo_A.sh
 ```
 
 Ejecuta 02 solo después de que 01 termine correctamente. Espera a la comprobación de tamaño y hash del modelo.
+
+```bash
+bash ./02_descargar_modelo_A.sh
+```
 
 En B:
 

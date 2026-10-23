@@ -11,7 +11,7 @@ La necesidad inicial era trabajar con modelos de pesos abiertos sin depender de 
 ## El objetivo en un dibujo
 
 ```mermaid
-flowchart LR
+flowchart TD
     U[Usuario en A] --> A[Portátil A: chat y coordinación]
     A --> GA[GPU de A: parte del modelo]
     A <-->|SSH por Ethernet| S[Switch aislado]
@@ -39,13 +39,25 @@ La prueba distribuye trabajo y memoria entre GPU. No convierte físicamente las 
 
 ## Obtener los archivos en Ubuntu
 
-Con Internet, en cada portátil, descarga el repositorio mediante **Code → Download ZIP**, o usa Git si está instalado:
+Con Internet, en cada portátil, descarga el repositorio mediante **Code → Download ZIP**. En Archivos de Ubuntu, abre Descargas, pulsa con el botón derecho sobre el ZIP y selecciona **Extraer aquí**. Abre la carpeta extraída y copia su carpeta `prueba_dos_portatiles` a tu Carpeta personal.
+
+Como alternativa, si tienes Git instalado, abre una terminal y ejecuta:
 
 ```bash
+cd "$HOME"
 git clone https://github.com/iesataulfoargentasor/cluster-llm-portatiles.git
 ```
 
 Copia la carpeta `prueba_dos_portatiles` del repositorio a tu Carpeta personal. La guía supone que queda en `~/prueba_dos_portatiles`. Si ya tienes una copia de una sesión anterior, consérvala con otro nombre antes de copiar esta. Mantén la misma versión del paquete en A y B.
+
+Abre una terminal con **Ctrl+Alt+T** y comprueba que los archivos están donde corresponde:
+
+```bash
+cd "$HOME/prueba_dos_portatiles"
+ls
+```
+
+Debes ver los scripts 01 a 08, `comun.sh`, `versiones.env`, `red_cluster.py` y `probar_modelo.py`. A continuación sigue el [orden de ejecución en A y B](docs/04_orden_de_ejecucion.md). Cada bloque indica en qué equipo y terminal ejecutarlo; al abrir una terminal nueva, vuelve a entrar en la carpeta del paquete.
 
 Los documentos y scripts se descargan del repositorio; **los pesos del modelo y CUDA se descargan después**, durante los pasos de preparación. Guarda la guía HTML y la hoja resumen localmente antes de desconectar Internet. GitHub muestra el código de los HTML: para leerlos con formato, descárgalos y ábrelos en el navegador.
 

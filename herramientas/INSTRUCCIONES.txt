@@ -29,8 +29,10 @@ RECOPILAR DATOS DE LOS PORTATILES DEL CENTRO
    ethtool, entrega el informe disponible: incluye la velocidad negociada
    cuando Linux consigue consultarla, aunque falten las velocidades admitidas.
 
-7. Repite en cada portatil. Copia los informes .txt al pendrive y adjuntalos
-   al chat desde tu equipo personal.
+7. Repite en cada portatil. Copia los informes .txt al pendrive y conservalos
+   en el archivo privado del proyecto. Compara los datos con docs/02_hardware.md
+   del repositorio. Antes de compartirlos, elimina identificadores personales
+   y de red. Publica solo una sintesis tecnica de cada equipo.
 
 El script consulta CPU, RAM, GPU, controlador NVIDIA y conexiones Ethernet.
 Solo crea la carpeta de informes y el archivo de texto; no instala programas.

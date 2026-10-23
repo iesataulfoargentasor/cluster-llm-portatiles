@@ -300,11 +300,11 @@ El script retira el perfil de IP fija de la prueba y vuelve a activar el perfil 
 
 Puedes repetir 07 con el mismo rol y 08 sin acumular perfiles de prueba. Tras reiniciar un portátil, vuelve a ejecutar 07 para activar sus IP de laboratorio: ese perfil tiene la conexión automática desactivada. Al terminar, vuelve a activar Wi-Fi o VPN si las habías desactivado.
 
-## 14. Qué resultados traer al chat
+## 14. Qué resultados conservar del laboratorio
 
 Copia desde **A** la carpeta `~/cluster_llm/resultados`, el último registro `modelo_A_...log` y `~/cluster_llm/entorno_A.txt`. Desde **B**, copia el último `rpc_B_...log` y `~/cluster_llm/entorno_B.txt`. Los registros están en `~/cluster_llm/logs`.
 
-Indica si utilizaste contexto 4096 o 2048 y si había otros programas abiertos. Los registros pueden contener consultas: para esta primera práctica utiliza texto de ejemplo.
+Anota en la ficha de resultados si utilizaste contexto 4096 o 2048 y si había otros programas abiertos. Los registros pueden contener consultas: para esta primera práctica utiliza texto de ejemplo.
 
 ## Referencias y alcance de la comprobación
 
