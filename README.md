@@ -25,6 +25,10 @@ La prueba distribuye trabajo y memoria entre GPU. No convierte físicamente las 
 
 ## Por dónde empezar
 
+**Manual para consultar sin Internet:** [descargar el PDF completo](https://github.com/iesataulfoargentasor/cluster-llm-portatiles/raw/refs/heads/main/output/pdf/manual-cluster-llm-portatiles.pdf) · [ver el PDF en GitHub](output/pdf/manual-cluster-llm-portatiles.pdf).
+
+Incluye 34 páginas, índice enlazado, 12 capítulos y los seis esquemas incorporados. Guárdalo en ambos portátiles antes de aislar la red. Edición del 23 de octubre de 2026, basada en la revisión documental `f962ba4`. El PDF contiene las instrucciones; los scripts y el modelo se preparan por separado según la guía. Las referencias externas requieren Internet.
+
 | Necesidad | Documento |
 |---|---|
 | Entender cómo surgió y evolucionó | [Historia del proyecto](docs/01_historia.md) |
