@@ -78,21 +78,17 @@ cmake -DUI_SOURCE_DIR="$FUENTE_KIT/tools/ui" -DUI_BINARY_DIR="$CACHE/ui" \
 tar -czf "$KIT/fuentes/interfaz_chat.tar.gz" -C "$CACHE/ui/dist" .
 
 MODELO_USB="$KIT/modelo/$MODEL_NAME"
-if [[ ! -f "$MODELO_USB" ]]; then
-    curl --fail --location --retry 5 --connect-timeout 30 --proto '=https' --proto-redir '=https' \
-        --continue-at - --output "$MODELO_USB.part" \
-        "https://huggingface.co/$MODEL_REPO/resolve/$MODEL_REVISION/$MODEL_NAME"
-    [[ "$(stat -c '%s' "$MODELO_USB.part")" == "$MODEL_BYTES" ]] || fallar 'Tamano de modelo incorrecto.'
-    [[ "$(sha256sum "$MODELO_USB.part" | cut -d ' ' -f 1)" == "$MODEL_SHA256" ]] || fallar 'Hash de modelo incorrecto.'
-    mv "$MODELO_USB.part" "$MODELO_USB"
-fi
-[[ "$(sha256sum "$MODELO_USB" | cut -d ' ' -f 1)" == "$MODEL_SHA256" ]] || fallar 'Modelo existente con hash incorrecto.'
+descargar_modelo "$MODELO_USB" "https://huggingface.co/$MODEL_REPO/resolve/$MODEL_REVISION/$MODEL_NAME"
+# La marca solo sobrevive si se termina y verifica el manifiesto.
+kit_validado=0
+trap 'if [[ "$kit_validado" == 0 ]]; then rm -f -- "$KIT/KIT_COMPLETO.txt"; fi' EXIT
 printf 'Kit preparado el %s. Ubuntu 22.04 amd64. No incluye controlador NVIDIA.\n' "$(date -Is)" > "$KIT/KIT_COMPLETO.txt"
 (cd "$KIT" && find debs modelo fuentes prueba_dos_portatiles sin_conexion -type f ! -name lock -print0 \
     | sort -z | xargs -0 sha256sum > SHA256SUMS)
 (cd "$KIT" && sha256sum Packages REVISION_LLAMA.txt KIT_COMPLETO.txt >> SHA256SUMS
     if [[ -f manual-cluster-llm-portatiles.pdf ]]; then sha256sum manual-cluster-llm-portatiles.pdf >> SHA256SUMS; fi
     sha256sum --check --quiet SHA256SUMS)
+kit_validado=1
 printf '\nKIT PREPARADO: %s\n' "$KIT"
 du -sh "$KIT"
 printf 'Copia la carpeta completa al pendrive. Lee sin_conexion/LEEME.md.\n'

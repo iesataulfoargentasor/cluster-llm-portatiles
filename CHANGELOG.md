@@ -1,5 +1,13 @@
 # Cambios del proyecto
 
+## Revisión simulada de la instalación sin Internet
+
+- Corregida la reanudación de un modelo parcial que ya tiene el tamaño completo.
+- Extracción de fuentes en carpeta temporal antes de publicar la carpeta definitiva.
+- Ampliado el bloqueo de cambios APT a bibliotecas NVIDIA, DKMS y metapaquetes del kernel; se rechaza un plan ausente.
+- Retirada de la marca de kit completo si falla la generación o verificación del inventario.
+- 26 pruebas automatizadas superadas (14 offline y 12 de red simulada), incluida comprobación de sintaxis. APT y compilación CUDA reales siguen pendientes en Ubuntu.
+
 ## Preparación de un kit de instalación sin Internet
 
 - Nueva ruta en `sin_conexion`: preparación en Ubuntu 22.04 conectado, instalación local A/B e importación del modelo en A.

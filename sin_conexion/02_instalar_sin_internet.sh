@@ -38,23 +38,13 @@ for paquete in "${PAQUETES[@]}"; do
 done
 sudo apt-get "${APT[@]}" --no-download --no-remove --no-install-recommends -s install "${INSTALAR[@]}" \
     | tee "$APT_LOCAL/plan.txt"
-if grep -E '^Inst (nvidia-driver-|nvidia-dkms-|linux-image-|linux-modules-nvidia-)' "$APT_LOCAL/plan.txt"; then
-    fallar 'El plan afectaria al controlador o kernel. No se aplica: revisa los registros.'
-fi
+validar_plan_apt "$APT_LOCAL/plan.txt"
 sudo apt-get "${APT[@]}" --no-download --no-remove --no-install-recommends -y install "${INSTALAR[@]}"
 "$CUDA_RAIZ/bin/nvcc" --version
 
 # Ruta separada para no sobrescribir fuentes de una instalacion anterior.
 FUENTE_OFFLINE="$TRABAJO/llama.cpp-offline-${LLAMA_COMMIT:0:12}"
-if [[ -e "$FUENTE_OFFLINE" ]]; then
-    [[ -f "$FUENTE_OFFLINE/ORIGEN_KIT.txt" && "$(cat "$FUENTE_OFFLINE/ORIGEN_KIT.txt")" == "$LLAMA_COMMIT" ]] || fallar 'La carpeta de fuentes offline ya existe sin identificacion. Conserva esa carpeta con otro nombre.'
-else
-    mkdir "$FUENTE_OFFLINE"
-    tar -xzf "$RAIZ_KIT/fuentes/llama.cpp.tar.gz" --no-same-owner -C "$FUENTE_OFFLINE"
-    mkdir -p "$FUENTE_OFFLINE/tools/ui/dist"
-    tar -xzf "$RAIZ_KIT/fuentes/interfaz_chat.tar.gz" --no-same-owner -C "$FUENTE_OFFLINE/tools/ui/dist"
-    printf '%s\n' "$LLAMA_COMMIT" > "$FUENTE_OFFLINE/ORIGEN_KIT.txt"
-fi
+extraer_fuentes "$FUENTE_OFFLINE"
 [[ -f "$FUENTE_OFFLINE/tools/ui/dist/index.html" ]] || fallar 'Faltan los recursos del chat.'
 cmake -S "$FUENTE_OFFLINE" -B "$FUENTE_OFFLINE/build" -G Ninja \
     -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_COMPILER="$CUDA_RAIZ/bin/nvcc" \

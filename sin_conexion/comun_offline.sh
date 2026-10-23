@@ -5,8 +5,8 @@ umask 022
 SCRIPTS_OFFLINE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 RAIZ_KIT="$(cd -- "$SCRIPTS_OFFLINE/.." && pwd)"
 source "$RAIZ_KIT/prueba_dos_portatiles/comun.sh"
-# comun.sh usa permisos privados para registros; los archivos del repositorio
-# local de APT necesitan lectura por el usuario _apt.
+source "$SCRIPTS_OFFLINE/funciones_seguras.sh"
+# APT accede al repositorio privado con Sandbox::User=root.
 PAQUETES=(build-essential cmake ninja-build git curl ca-certificates libssl-dev
     python3 openssh-client openssh-server ethtool pciutils cuda-toolkit-12-8)
 ubuntu_compatible() {

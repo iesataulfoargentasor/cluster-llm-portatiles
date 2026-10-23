@@ -2,7 +2,17 @@
 
 Esta ruta prepara los archivos en **un portátil Ubuntu 22.04 con Internet** y permite instalarlos después, sin conexión, en A y B. El kit se genera en Ubuntu; el ZIP pequeño de GitHub contiene instrucciones y scripts, pero no incluye los gigabytes de dependencias ni el modelo.
 
-**Estado:** scripts preparados y revisados por lectura. Pendiente ejecutar la preparación, la instalación APT y la compilación en Ubuntu real. La descarga completa no se ha realizado en el portátil personal Windows.
+**Estado:** scripts revisados, sintaxis comprobada y decisiones de descarga, extracción y protección del controlador probadas con datos pequeños y comandos simulados. Pendiente ejecutar la preparación, la instalación APT y la compilación en Ubuntu real. La descarga completa no se ha realizado en el portátil personal Windows.
+
+## Revisión antes de utilizar los portátiles (23 de octubre de 2026)
+
+- Una descarga parcial que ya está completa se verifica y se aprovecha sin volver a pedir datos al servidor. Los archivos corruptos o demasiado grandes se rechazan y se conservan para su revisión.
+- Las fuentes se extraen primero en una carpeta temporal. Si se interrumpe la extracción, se puede repetir: la carpeta definitiva todavía no existe. Las carpetas con sufijo `.extraccion.*` que hayan quedado de intentos fallidos se conservan; pueden retirarse manualmente tras comprobar una instalación correcta.
+- La simulación APT bloquea cambios en el controlador NVIDIA, sus bibliotecas y paquetes del kernel, y rechaza un plan ausente. El toolkit CUDA sí está permitido.
+- Si falla la generación o verificación del inventario, se retira la marca de kit completo al salir del script.
+- Se han ejecutado 26 pruebas automatizadas: 14 de la ruta offline (incluida la sintaxis de todos los scripts) y 12 de la configuración de red simulada. No se han ejecutado APT, CUDA ni cambios de red reales durante esta revisión.
+
+Estas pruebas no sustituyen la instalación en Ubuntu: todavía hay que comprobar que las dependencias descargadas resuelvan el estado concreto de A y B y que la compilación detecte sus GPU. Conserva acceso a Internet durante la preparación y no des por validado el kit hasta completar una instalación con la conexión desconectada.
 
 ## Requisitos y espacio
 
