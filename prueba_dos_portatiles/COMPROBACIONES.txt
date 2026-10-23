@@ -1,0 +1,38 @@
+COMPROBACIONES DEL PAQUETE
+
+Fecha de preparación: 23 de octubre de 2026.
+
+Comprobaciones realizadas en la preparacion inicial, antes de incorporar la red:
+- Sintaxis Bash de los siete scripts y versiones.env con bash -n.
+- Sintaxis Python del cliente de consulta.
+- Lectura de una respuesta SSE simulada, captura de texto y tiempos y guardado JSON.
+- Rechazo de una respuesta SSE truncada.
+- Correspondencia del tag v0.7.0 con la revisión fijada de llama.cpp mediante la API oficial.
+- Tamaño y SHA-256 del GGUF según su referencia LFS oficial, sin descargar los 9 GB.
+- Opciones principales del servidor y de RPC contrastadas con la revisión fijada.
+- Entrega con UTF-8 sin BOM y saltos de línea LF.
+
+Ampliacion de red del 23 de octubre de 2026:
+- Incorporados 07_configurar_red_aislada.sh, 08_restaurar_dhcp.sh y red_cluster.py.
+- Utilizan perfiles de NetworkManager separados y conservan los originales.
+- Guia Markdown y HTML actualizadas; paquete ZIP regenerado.
+- Revision posterior solicitada: 12 pruebas de red simulada superadas.
+- NetworkManager y sysfs simulados; bloqueo de procesos externos en esas pruebas.
+- Casos: IP de A/B, repeticion, cambio de rol, fallo de activacion y recuperacion,
+  DHCP anterior, perfil anterior manual, ausencia de DHCP y reintento,
+  perfil alterado, ausencia de registro, nombre alterado y rechazo en Windows.
+- Sintaxis Bash de todos los scripts y sintaxis de ambos archivos Python comprobadas.
+- Corregidos: aviso de interfaz sin enlace, recuperacion ante errores de E/S
+  durante activacion y rechazo de gateway/DNS/IPv6 alterados en el perfil de prueba.
+- Las pruebas simuladas no ejecutan nmcli, sudo ni cambios de red reales.
+
+Pendiente en los portátiles del centro:
+- Instalación de dependencias y compilación con CUDA 12.8 en Ubuntu 22.04.
+- Descarga de los pesos y comprobación de su contenido real.
+- Carga del modelo en las dos RTX 3060 de 6 GB.
+- Comunicación SSH/RPC real por Ethernet, consumo de VRAM y velocidad.
+- Activacion de IP fija y restauracion de DHCP con NetworkManager en los dos equipos.
+
+No se han instalado CUDA ni servicios de Linux en el portátil personal.
+No se ha modificado la configuracion de red del portatil personal.
+Las pruebas simuladas del cliente no acreditan rendimiento ni compatibilidad completa del clúster.

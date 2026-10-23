@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.gguf
+*.part
+*.log
+informes_cluster/
+cluster_llm/
+resultados_locales/
+.env

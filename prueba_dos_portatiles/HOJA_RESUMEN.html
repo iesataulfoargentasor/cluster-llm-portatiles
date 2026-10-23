@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hoja resumen · Prueba con dos portátiles</title>
+<style>
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#183044;background:#edf1f4;margin:0;font-size:14px;line-height:1.4}.pagina{background:white;max-width:900px;margin:24px auto;padding:32px 40px}h1{font-size:25px;margin:0 0 8px}h2{font-size:17px;margin:17px 0 6px;border-bottom:1px solid #bccbd5;padding-bottom:4px}p{margin:7px 0}pre{background:#eef3f6;padding:9px 12px;margin:7px 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.45}code{font-family:Consolas,monospace}.par{display:grid;grid-template-columns:1fr 1fr;gap:18px}.nota{background:#fff4d9;padding:9px 12px}.meta{color:#526779;font-size:12px}ol,ul{padding-left:22px;margin:8px 0}li{margin:4px 0}a{color:#126493}footer{border-top:1px solid #bccbd5;margin-top:18px;padding-top:8px;font-size:12px}@page{size:A4;margin:12mm}@media print{body{background:white;font-size:10pt;line-height:1.28}.pagina{padding:0;margin:0;max-width:none;break-after:page}.pagina:last-child{break-after:auto}h1{font-size:18pt}h2{font-size:12pt;margin-top:11px}pre{font-size:9pt;padding:7px;line-height:1.35}p{margin:5px 0}footer,.meta{font-size:9pt}.nota{padding:7px}.pantalla{display:none}h2{break-after:avoid}.paso{break-inside:avoid}}@media screen and (max-width:650px){.par{grid-template-columns:1fr}.pagina{padding:20px}}
+</style></head><body>
+<section class="pagina">
+<div class="meta">HOJA RESUMEN · 1/2 · UBUNTU 22.04 · QWEN3-14B Q4_K_M</div>
+<h1>Preparar A y B → aislar la red</h1>
+<p><b>A:</b> coordinador y chat · <b>B:</b> GPU remota. Sigue los pasos de esta hoja en orden; los números de los scripts no indican el orden completo.</p>
+<p class="pantalla">Para imprimir: Ctrl+P → A4 → escala 100 %, sin encabezados ni pies del navegador. Dos caras, aptas para imprimir a doble cara.</p>
+<div class="paso"><h2>1. Ambos · preparar los equipos con Internet</h2>
+<p>Copia la carpeta completa del paquete a <code>~/prueba_dos_portatiles</code> en ambos. Usa el mismo usuario durante toda la práctica. Conecta los cargadores y desactiva temporalmente la suspensión.</p>
+<pre>cd "$HOME/prueba_dos_portatiles"
+nvidia-smi
+nmcli device status</pre>
+<p>Comprueba la GPU y el nombre de Ethernet. Esta hoja supone <b>eno1</b>. El paquete está preparado para RTX 3060 Laptop de 6 GB. Si el controlador falla o el hardware difiere, consulta la guía antes de continuar.</p>
+<p><b>Usuario normal:</b> no antepongas <code>sudo</code> a los scripts. Introduce la contraseña cuando la pidan.</p></div>
+<div class="paso"><h2>2. Instalar · pueden hacerlo A y B a la vez</h2>
+<div class="par"><div><b>En A</b><pre>cd "$HOME/prueba_dos_portatiles"
+bash ./01_instalar.sh A</pre></div><div><b>En B</b><pre>cd "$HOME/prueba_dos_portatiles"
+bash ./01_instalar.sh B</pre></div></div>
+<p>Espera a que aparezcan <code>CUDA0</code> e “Instalacion terminada” en ambos. Si falla, conserva el registro y resuelve el error antes de seguir.</p></div>
+<div class="paso"><h2>3. A · descargar y comprobar el modelo</h2>
+<pre>bash ./02_descargar_modelo_A.sh</pre>
+<p>Espera a la comprobación correcta de tamaño y SHA-256. Descarga aproximada: <b>9 GB</b>. B recibe sus pesos desde A durante la carga.</p></div>
+<div class="paso"><h2>4. B · anotar el usuario y la huella SSH</h2>
+<pre>whoami
+ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub</pre>
+<p>Usuario de B: __________________ &nbsp; Conserva también la huella mostrada.</p></div>
+<div class="paso"><h2>5. Ambos · pasar al switch aislado y asignar IP</h2>
+<p><b>Solo después de completar las instalaciones y la descarga:</b> conecta un cable de cada portátil al switch encendido, separado de la red del centro. Desactiva Wi-Fi y VPN para aislar completamente los equipos. Ejecuta desde el teclado de cada portátil.</p>
+<div class="par"><div><b>A → 192.168.50.10</b><pre>bash ./07_configurar_red_aislada.sh A</pre></div><div><b>B → 192.168.50.20</b><pre>bash ./07_configurar_red_aislada.sh B</pre></div></div>
+<p>Si Ethernet tiene otro nombre, añádelo al comando, por ejemplo: <code>bash ./07_configurar_red_aislada.sh B enp3s0</code>.</p></div>
+<div class="paso"><h2>6. A · comprobar comunicación con B</h2>
+<pre>ping -c 3 192.168.50.20</pre>
+<p>Si no responde, revisa IP, cables y cortafuegos. El filtrado de ping puede impedir la respuesta aunque SSH funcione.</p></div>
+<footer>Los perfiles anteriores se conservan. Mantén <code>~/cluster_llm/red</code> en cada equipo para restaurar DHCP. Continúa por el paso 7 de la siguiente cara.</footer>
+</section>
+<section class="pagina">
+<div class="meta">HOJA RESUMEN · 2/2 · EJECUCIÓN SIN INTERNET Y FINALIZACIÓN</div>
+<h1>Arrancar B → conectar A → probar → restaurar</h1>
+<div class="paso"><h2>7. B · terminal B1: arrancar la GPU remota</h2>
+<pre>cd "$HOME/prueba_dos_portatiles"
+sudo systemctl start ssh
+bash ./03_iniciar_rpc_B.sh</pre>
+<p>Espera a que aparezcan <code>CUDA0</code> y <code>127.0.0.1:50052</code>. <b>Deja B1 abierta.</b></p></div>
+<div class="paso"><h2>8. A · terminal A1: abrir el túnel SSH</h2>
+<p>Sustituye <b>USUARIO_B</b> por el resultado de <code>whoami</code> del paso 4.</p>
+<pre>cd "$HOME/prueba_dos_portatiles"
+bash ./04_abrir_tunel_A.sh USUARIO_B@192.168.50.20</pre>
+<p>Compara la huella con la anotada en B y acepta si coincide. Introduce la contraseña de B; puede pedirla dos veces. <b>Deja A1 abierta</b>, aunque no muestre más texto.</p></div>
+<div class="paso"><h2>9. A · nueva terminal A2: cargar el modelo</h2>
+<pre>cd "$HOME/prueba_dos_portatiles"
+bash ./05_iniciar_modelo_A.sh</pre>
+<p>Espera a que el servidor esté listo; la primera carga puede tardar varios minutos. <b>Deja A2 abierta.</b> Abre en el navegador de A: <code>http://127.0.0.1:8080</code>.</p></div>
+<div class="paso"><h2>10. Probar y observar las GPU</h2>
+<div class="par"><div><b>A · nueva terminal A3</b><pre>cd "$HOME/prueba_dos_portatiles"
+bash ./06_probar_A.sh</pre><p>Guarda resultados en <code>~/cluster_llm/resultados</code>. No uses el chat mientras se mide.</p></div><div><b>Ambos · terminal adicional</b><pre>watch -n 1 nvidia-smi</pre><p>Comprueba VRAM ocupada en ambas GPU. Ctrl+C cierra esta observación.</p></div></div></div>
+<div class="paso"><h2>11. Parar · orden obligatorio antes de cambiar la red</h2>
+<p><b>Ctrl+C en A2</b> (modelo) → <b>Ctrl+C en A1</b> (túnel) → <b>Ctrl+C en B1</b> (RPC). Conserva los registros de <code>~/cluster_llm/logs</code> y los resultados.</p></div>
+<div class="paso"><h2>12. Ambos · volver a la red habitual y a DHCP</h2>
+<p>Conecta cada cable a una red con servidor DHCP. En una terminal local de <b>cada portátil</b>:</p>
+<pre>cd "$HOME/prueba_dos_portatiles"
+bash ./08_restaurar_dhcp.sh</pre>
+<p>Si utilizaste otra interfaz: <code>bash ./08_restaurar_dhcp.sh enp3s0</code>. Espera “Conexion DHCP activa”. En el switch aislado puede quedar pendiente: conecta a la red habitual y repite 08. Restaura Wi-Fi, VPN y suspensión si las cambiaste.</p></div>
+<div class="nota"><b>Solo si hay un problema:</b> si UFW bloquea SSH, en otra terminal de B consulta <code>sudo ufw status</code>; si procede, permite A con <code>sudo ufw allow from 192.168.50.10 to any port 22 proto tcp</code>. Si añadiste esa regla solo para la prueba, al acabar retírala con <code>sudo ufw delete allow from 192.168.50.10 to any port 22 proto tcp</code>. No abras RPC al exterior. Para otros errores, consulta la guía completa.</div>
+<footer><b>Otra sesión:</b> con instalación y modelo conservados, empieza por el paso 5 de esta hoja. Prueba real en los portátiles pendiente; consulta <a href="GUIA_PASO_A_PASO.html">GUIA_PASO_A_PASO.html</a> y <code>COMPROBACIONES.txt</code> para detalles.</footer>
+</section></body></html>

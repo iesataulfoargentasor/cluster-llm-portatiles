@@ -1,0 +1,38 @@
+RECOPILAR DATOS DE LOS PORTATILES DEL CENTRO
+
+1. Copia recopilar_datos_cluster.sh a un pendrive y llevalo al centro.
+
+2. En cada portatil Ubuntu, copia el script a una carpeta local, por ejemplo
+   Descargas. Conecta el cable Ethernet al switch que se utilizara en la prueba.
+   Si usas un adaptador Ethernet USB, conectalo tambien.
+
+3. Abre la carpeta que contiene el script. Pulsa con el boton derecho sobre
+   un espacio vacio y elige "Abrir en una terminal".
+
+4. Ejecuta:
+
+   bash ./recopilar_datos_cluster.sh
+
+   No hace falta marcar el archivo como ejecutable ni ejecutar el script con sudo.
+
+5. El script mostrara la ruta del informe generado. Lo encontraras en la carpeta
+   informes_cluster, dentro de tu Carpeta personal. Cada archivo incorpora el
+   nombre del equipo, la fecha y un identificador para evitar sobrescrituras.
+
+6. Si avisa de que falta ethtool, puedes completar los datos de Ethernet
+   ejecutando estos comandos con conexion a Internet:
+
+   sudo apt update && sudo apt install ethtool
+   bash ./recopilar_datos_cluster.sh
+
+   Conserva el informe mas reciente de ese equipo. Si no puedes instalar
+   ethtool, entrega el informe disponible: incluye la velocidad negociada
+   cuando Linux consigue consultarla, aunque falten las velocidades admitidas.
+
+7. Repite en cada portatil. Copia los informes .txt al pendrive y adjuntalos
+   al chat desde tu equipo personal.
+
+El script consulta CPU, RAM, GPU, controlador NVIDIA y conexiones Ethernet.
+Solo crea la carpeta de informes y el archivo de texto; no instala programas.
+Si nvidia-smi falta o falla, el informe lo registra: entrega igualmente el archivo.
+La velocidad de Ethernet solo se puede interpretar con un enlace activo.
